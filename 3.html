@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Babylon.js</title>
+
+  <script src="javascripts/hand.js"></script>
+  <script src="javascripts/cannon.js"></script>
+  <script src="javascripts/oimo.js"></script>
+  <script src="javascripts/babylon.2.5.js"></script>
+  <style>
+  html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+  var canvas = document.getElementById('canvas')
+  var engine = new BABYLON.Engine(canvas, true)
+  var scene = createScene()
+  engine.runRenderLoop(function () {
+    scene.render()
+  })
+
+  function createScene () {
+    var scene = new BABYLON.Scene(engine)
+    var light = new BABYLON.PointLight('Omni', new BABYLON.Vector3(0, 100, 100), scene)
+    var camera = new BABYLON.ArcRotateCamera('Camera', 0, 0.8, 100, BABYLON.Vector3.Zero(), scene)
+    camera.attachControl(canvas, true)
+    var sphere1 = BABYLON.Mesh.CreateSphere('sphere1', 10.0, 6.0, scene)
+    var sphere2 = BABYLON.Mesh.CreateSphere('sphere2', 1.0, 7.0, scene)
+    var sphere3 = BABYLON.Mesh.CreateSphere('sphere3', 10.0, 8.0, scene)
+
+    var material1 = new BABYLON.StandardMaterial('texture1', scene)
+    sphere1.material = material1
+    // material1.alpha = 0.5
+    material1.diffuseColor = new BABYLON.Color3(1.0, 0.2, 0.7)
+    // material1.diffuseTexture = new BABYLON.Texture('textures/2.jpg', scene)
+    // material1.diffuseTexture.uScale = 10
+    // material1.diffuseTexture.vScale = 10
+    // material1.diffuseTexture.hasAlpha = true
+    // material1.useAlphaFromDiffuseTexture = true
+
+    // material1.emissiveColor = new BABYLON.Color3(1, .2, .7)
+    // material1.emissiveTexture = new BABYLON.Texture('textures/5.png', scene)
+
+    // material1.ambientColor = new BABYLON.Color3(1, 0.2, 0.7)
+    // material1.ambientTexture = new BABYLON.Texture('textures/2.png', scene)
+
+    material1.specularColor = new BABYLON.Color3(1.0, 0.2, 0.7)
+    material1.useGlossinessFromSpecularMapAlpha = true
+    material1.useSpecularOverAlpha = true
+    material1.specularPower = 5
+
+    sphere1.position.x = -40
+    sphere2.position.x = -30
+
+    return scene
+  }
+  </script>
+</body>
+</html>

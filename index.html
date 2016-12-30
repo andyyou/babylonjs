@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Babylon.js</title>
+
+  <script src="javascripts/hand.js"></script>
+  <script src="javascripts/cannon.js"></script>
+  <script src="javascripts/oimo.js"></script>
+  <script src="javascripts/babylon.2.5.js"></script>
+  <style>
+  html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+  var canvas = document.getElementById('canvas')
+  var engine = new BABYLON.Engine(canvas, true)
+  var scene = createScene()
+  engine.runRenderLoop(function () {
+    scene.render()
+  })
+  window.addEventListener('resize', function () {
+    engine.resize()
+  })
+
+  function createScene () {
+    var scene = new BABYLON.Scene(engine)
+    scene.clearColor = new BABYLON.Color3(0, 1, 0)
+    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene)
+    camera.setTarget(BABYLON.Vector3.Zero())
+    camera.attachControl(canvas, false)
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene)
+    light.intensity = .5
+    var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene)
+    sphere.position.y = 1
+    var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene)
+    return scene
+  }
+
+  /**
+   * 對比 three.js resize
+   */
+  /*
+    window.addEventListener('resize', onResize, false)
+    function onResize () {
+      width = container.clientWidth
+      height = container.clientHeight
+      camera.aspect = width / height
+      camera.updateProjectionMatrix()
+      renderer.setSize(width, height)
+      rrenderer.render(scene, camera)
+    }
+  */
+  </script>
+</body>
+</html>
