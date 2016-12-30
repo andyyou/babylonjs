@@ -39,7 +39,7 @@
 
   BABYLON.OBJFileLoader.OPTIMIZE_WITH_UV = true
   var loader = new BABYLON.AssetsManager(scene)
-  var helmet = loader.addMeshTask('helmet', '', './models/Helmet', 'Helmet.obj')
+  var helmet = loader.addMeshTask('helmet', '', 'models/Helmet/', 'Helmet.obj')
 
   helmet.onSuccess = function (t) {
     t.loadedMeshes.forEach(function (m) {
